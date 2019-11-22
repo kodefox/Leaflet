@@ -64,17 +64,7 @@ L.Map.Keyboard = L.Handler.extend({
 	_onMouseDown: function () {
 		if (this._focused) { return; }
 
-		var body = document.body,
-		    docEl = document.documentElement,
-		    top = body.scrollTop || docEl.scrollTop,
-		    left = body.scrollLeft || docEl.scrollLeft;
-
-		var container = this._map._container;
-		clearTimeout(this._scrollFixTimeout);
-		this._scrollFixTimeout = setTimeout(function() {
-			container.focus();
-			window.scrollTo(left, top);
-		}, 1);
+		this._map._container.focus();
 	},
 
 	_onFocus: function () {
