@@ -36,8 +36,7 @@ L.Map.Keyboard = L.Handler.extend({
 
 		L.DomEvent.on(container, {
 			focus: this._onFocus,
-			blur: this._onBlur,
-			mousedown: this._onMouseDown
+			blur: this._onBlur
 		}, this);
 
 		this._map.on({
@@ -51,30 +50,13 @@ L.Map.Keyboard = L.Handler.extend({
 
 		L.DomEvent.off(this._map._container, {
 			focus: this._onFocus,
-			blur: this._onBlur,
-			mousedown: this._onMouseDown
+			blur: this._onBlur
 		}, this);
 
 		this._map.off({
 			focus: this._addHooks,
 			blur: this._removeHooks
 		}, this);
-	},
-
-	_onMouseDown: function () {
-		if (this._focused) { return; }
-
-		var body = document.body,
-		    docEl = document.documentElement,
-		    top = body.scrollTop || docEl.scrollTop,
-		    left = body.scrollLeft || docEl.scrollLeft;
-
-		var container = this._map._container;
-		clearTimeout(this._scrollFixTimeout);
-		this._scrollFixTimeout = setTimeout(function() {
-			container.focus();
-			window.scrollTo(left, top);
-		}, 1);
 	},
 
 	_onFocus: function () {
